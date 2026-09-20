@@ -1,7 +1,7 @@
 class Solution:
     def visibleMountains(self, peaks: List[List[int]]) -> int:
         n = len(peaks)
-
+        #Google problems
         #sort by x-intercept of left mountain ascending first and x-intercept(x+y) of right mountain descending
         peaks.sort(key = lambda x: (x[0] - x[1], -(x[0] + x[1])))
         count = 0
