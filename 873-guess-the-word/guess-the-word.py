@@ -4,7 +4,7 @@
 # """
 # class Master:
 #     def guess(self, word: str) -> int:
-
+# Google problem
 class Solution:
     def findSecretWord(self, words: List[str], master: 'Master') -> None:
         weights = [Counter(word[i] for word in words) for i in range(6)]
