@@ -6,7 +6,7 @@ class Video:
         self.views = 0
 
 class VideoSharingPlatform:
-
+    #Google Problem
     def __init__(self):
         self.videoMap = {}
         self.delHeap = []
