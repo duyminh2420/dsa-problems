@@ -1,26 +1,32 @@
+#Google coding problem
 class Video:
     def __init__(self, stream):
+        #String of digit number - content per minute 
         self.stream = stream
-        self.likes = 0
-        self.dislikes = 0
+        #number of views
         self.views = 0
+        #likes
+        self.likes = 0
+        #dislikes 
+        self.dislikes = 0
 
 class VideoSharingPlatform:
-    #Google Problem
     def __init__(self):
         self.videoMap = {}
-        self.delHeap = []
+        self.delHeap = [] #for recycle the video id 
         self.curId = 0
 
     def upload(self, video: str) -> int:
         curId = -1
+        #check on the recyle id to get one
         if self.delHeap:
             curId = heapq.heappop(self.delHeap)
-        else:
-            curId = self.curId
+        else: 
+            #create new
+            curId = self.curId 
             self.curId += 1
         self.videoMap[curId] = Video(video)
-        return curId
+        return curId 
 
     def remove(self, videoId: int) -> None:
         if videoId in self.videoMap:
@@ -46,7 +52,7 @@ class VideoSharingPlatform:
             video = self.videoMap[videoId]
             video.dislikes += 1
 
-    def getLikesAndDislikes(self, videoId: int) -> List[int]:
+    def getLikesAndDislikes(self, videoId: int) -> list[int]:
         if videoId in self.videoMap:
             video = self.videoMap[videoId]
             return [video.likes, video.dislikes]
@@ -57,7 +63,6 @@ class VideoSharingPlatform:
             video = self.videoMap[videoId]
             return video.views
         return -1
-
 
 # Your VideoSharingPlatform object will be instantiated and called as such:
 # obj = VideoSharingPlatform()
