@@ -1,5 +1,6 @@
 class Solution:
     def closestNode(self, n: int, edges: List[List[int]], query: List[List[int]]) -> List[int]:
+        #Google problem
         graph = defaultdict(list)
         for i, j in edges:
             graph[i].append(j)
