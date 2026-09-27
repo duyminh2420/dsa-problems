@@ -17,4 +17,5 @@ class Solution:
             else:
                 # Regular letter: add it to the current level
                 stack[-1] += c
+        # The bottom of the stack contains the final answer
         return stack[0]
