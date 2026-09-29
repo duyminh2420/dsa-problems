@@ -9,14 +9,19 @@ class Solution:
             if nums[right] == 0:
                 zeroCount += 1
             
-            #then if the zeroCount is greater than 1 (we already reach the limit)
-            #check the left if it is 0 we continue, reset the zero, move the next left
-            #check if the left is is 1 we stop and move on next left
+            # We are allowed to have at most one 0 in the window,
+            # because that 0 can be deleted.
+            # If we have more than one 0, shrink from the left
+            # until only one 0 remains.
             while zeroCount > 1:
+                # If the element leaving the window is a 0,
+                # decrease the zero count.
                 if nums[left] == 0:
                     zeroCount -= 1
+                #move the next left boundaries 
                 left += 1
 
-            #keep expanding:
+            # The window is now valid and contains at most one 0.
+            # We delete that one 0, so the answer is window size - 1.
             res = max(res, right - left)
         return res
