@@ -1,10 +1,10 @@
 class Solution:
     def combinationSum3(self, k: int, n: int) -> list[list[int]]:
-        results = []
-        def backtrack(remain, comb, next_start):
-            if remain == 0 and len(comb) == k:
-                #make copy of current combination 
-                results.append(list(comb))
+        #combination sum3 using backtracking
+        res = []
+        def backtrack(remain, comb, next_start): #want to keep the combination, then the remain number, then track the next start to do it.
+            if remain == 0 and len(comb) == k: #reaching max, basecase 
+                res.append(list(comb))
                 return 
             elif remain < 0 or len(comb) == k:
                 return 
@@ -14,4 +14,5 @@ class Solution:
                 backtrack(remain - i - 1, comb, i + 1)
                 comb.pop()
         backtrack(n, [], 0)
-        return results
+        return res
+            
