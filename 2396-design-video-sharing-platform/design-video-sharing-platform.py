@@ -1,24 +1,24 @@
 class Video:
     def __init__(self, stream):
         self.stream = stream
+        self.views = 0
         self.likes = 0
         self.dislikes = 0
-        self.views = 0
+
 class VideoSharingPlatform:
 
     def __init__(self):
-        #create the map and track the delHeap to reuse the id
-        self.videoMap = {}
+        self.videoMap = {} #videoId : Video()
         self.delHeap = []
-        #assign for the next new video
         self.curId = 0
 
     def upload(self, video: str) -> int:
-        curId = - 1
+        #upload and check the delHeap to assign new id or not
+        curId = -1
         if self.delHeap:
             curId = heapq.heappop(self.delHeap)
         else:
-            curId = self.curId
+            curId = self.curId 
             self.curId += 1
         self.videoMap[curId] = Video(video)
         return curId
@@ -26,14 +26,14 @@ class VideoSharingPlatform:
     def remove(self, videoId: int) -> None:
         if videoId in self.videoMap:
             del self.videoMap[videoId]
-            heapq.heappush(self.delHeap, videoId)
+            heapq.heappush( self.delHeap, videoId)
 
     def watch(self, videoId: int, startMinute: int, endMinute: int) -> str:
         if videoId in self.videoMap:
             video = self.videoMap[videoId]
-            stream = self.videoMap[videoId].stream
-            startMin = startMinute
-            endMin = min(len(stream), endMinute+1)
+            stream = video.stream
+            startMin = startMinute 
+            endMin = min(endMinute + 1, (len(stream)))
             video.views += 1
             return stream[startMin:endMin]
         return "-1"
@@ -42,21 +42,27 @@ class VideoSharingPlatform:
         if videoId in self.videoMap:
             video = self.videoMap[videoId]
             video.likes += 1
+            return video.likes 
+        return -1
 
     def dislike(self, videoId: int) -> None:
         if videoId in self.videoMap:
             video = self.videoMap[videoId]
             video.dislikes += 1
+            return video.dislikes 
+        return -1
 
     def getLikesAndDislikes(self, videoId: int) -> list[int]:
         if videoId in self.videoMap:
-            return [self.videoMap[videoId].likes, self.videoMap[videoId].dislikes]
+            video = self.videoMap[videoId]
+            return [video.likes, video.dislikes]
         return [-1]
 
     def getViews(self, videoId: int) -> int:
         if videoId in self.videoMap:
-            return self.videoMap[videoId].views
-        return -1
+            video = self.videoMap[videoId]
+            return video.views
+        return -1       
 
 
 # Your VideoSharingPlatform object will be instantiated and called as such:
