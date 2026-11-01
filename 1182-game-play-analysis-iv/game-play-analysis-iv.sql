@@ -1,11 +1,21 @@
-with first_login as (
-    select player_id, min(event_date) as first_date
-    from activity
-    group by player_id
+#return fraction for who log in back to the device 
+#find the player who logged in back to the device 
+WITH first_login AS (
+    SELECT
+        player_id,
+        MIN(event_date) AS first_date
+    FROM activity
+    GROUP BY player_id
 )
 
-select round(count(distinct a.player_id) * 1.0 / (select count(distinct player_id) from activity), 2) as fraction
-from activity a
-join first_login f 
-    on a.player_id = f.player_id
-    and a.event_date = f.first_date + interval '1 day';
+SELECT
+    ROUND(
+        COUNT(DISTINCT a.player_id) * 1.0 /
+        (SELECT COUNT(DISTINCT player_id) FROM activity),
+        2
+    ) AS fraction
+FROM activity a
+JOIN first_login f
+    ON a.player_id = f.player_id
+    AND a.event_date = DATE_ADD(f.first_date, INTERVAL 1 DAY);
+
